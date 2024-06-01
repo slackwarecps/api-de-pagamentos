@@ -1,6 +1,7 @@
 package br.com.fabioalvaro.pagamento.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class PagamentoService {
     public List<Pagamento> getPendingPayments() {
         List<Pagamento> pendingPayments = pagamentoRepository.findByStatus("PROCESSANDO");
         return pendingPayments;
+    }
+
+    public Optional<Pagamento> getPagamentoByTransacaoId(String transacaoId) {
+        return pagamentoRepository.findByTransacaoId(transacaoId);
     }
 
 }

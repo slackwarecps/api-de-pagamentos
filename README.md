@@ -58,3 +58,64 @@ Retorno:
 
 ````
 
+## Buscando o status da transacao
+
+````
+GET 
+
+http://localhost:8080/api/v1/pagamento/transacao/1b51736b-2e32-4934-8036-078275e0c162
+
+{
+  "id": 1,
+  "payer": "Alice",
+  "payee": "Bob",
+  "amount": 100.00,
+  "status": "CONCLUIDA",
+  "created": "2024-06-01 08:34:40.331697",
+  "transacaoId": "TX123",
+  "callback": "https://open-bingo.wiremockapi.cloud/pagbank/notificacao",
+  "formaPagamento": "SALDO"
+}
+````
+
+## Documentacao da API 
+Basta rodar na sua maquina e abrir o swagger
+```
+$ cd raiz-do-projeto
+$ mvn spring-boot:run
+```
+
+### Swagger
+http://localhost:8080/swagger-ui/index.html#/
+
+
+
+## Para configurar o vscode para executar o projeto use o seguinte arquivo
+````
+//launch.json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Bingo-Pay",
+            "request": "launch",
+            "mainClass": "br.com.fabioalvaro.pagamento.PagamentoApplication",
+            "projectName": "pagamento",
+            "args": "--spring.profiles.active=local"
+        }
+    ]
+}
+````
+
+
+

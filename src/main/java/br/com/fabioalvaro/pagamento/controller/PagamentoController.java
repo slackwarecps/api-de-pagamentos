@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,14 @@ public class PagamentoController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(PagamentoRespostaDTO.transformaEmRespostaDTO(Pagamento));
+    }
+
+    @GetMapping("/transacao/{transacaoId}")
+    public ResponseEntity<PagamentoRespostaDTO> getPagamentoByTransacaoId(@PathVariable String transacaoId) {
+        Optional<Pagamento> pagamento = pagamentoService.getPagamentoByTransacaoId(transacaoId);
+        if (pagamento.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(PagamentoRespostaDTO.transformaEmRespostaDTO(pagamento.get()));
     }
 }
