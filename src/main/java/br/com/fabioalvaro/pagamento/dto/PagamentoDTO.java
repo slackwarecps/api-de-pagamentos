@@ -27,7 +27,9 @@ public class PagamentoDTO implements Serializable {
 
     private BigDecimal amount;
 
+    private String callback;
+
     public Pagamento transformaParaObjeto() {
-        return new Pagamento(id, payer, payee, amount, null, null, null);
+        return new Pagamento(id, payer, payee, amount, null, null, null, callback);
     }
 }

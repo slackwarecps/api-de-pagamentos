@@ -9,5 +9,6 @@ CREATE TABLE pagamento (
     amount DECIMAL(19, 2) NOT NULL,
      status VARCHAR(255), -- Adicione esta linha
     created TIMESTAMP, -- Adicione esta linha
-    transacao_id VARCHAR(255) -- Adicione esta linha
+    transacao_id VARCHAR(255), -- Adicione esta linha
+    callback VARCHAR(255) -- Adicione esta linha
 );

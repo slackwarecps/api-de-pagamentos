@@ -18,9 +18,11 @@ public class PagamentoRespostaDTO {
     private String status;
     private String created;
     private String transacaoId;
+    private String callback;
 
     public static PagamentoRespostaDTO transformaEmRespostaDTO(Pagamento pagamento) {
         return new PagamentoRespostaDTO(pagamento.getId(), pagamento.getPayer(), pagamento.getPayee(),
-                pagamento.getAmount(), pagamento.getStatus(), pagamento.getCreated(), pagamento.getTransacaoId());
+                pagamento.getAmount(), pagamento.getStatus(), pagamento.getCreated(), pagamento.getTransacaoId(),
+                pagamento.getCallback());
     }
 }

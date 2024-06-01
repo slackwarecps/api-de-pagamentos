@@ -42,5 +42,7 @@ public class Pagamento {
     private String status;
     private String created;
     private String transacaoId;
+    @NotNull
+    private String callback;
 
 }
