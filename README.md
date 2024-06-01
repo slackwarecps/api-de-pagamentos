@@ -1,25 +1,28 @@
-# api-de-pagamentos
-Api de pagamentos Mock
+# Api-de-pagamentos
+Api de pagamentos Mock. Este projeto é uma API de pagamentos mock, desenvolvida em Java 17 e Maven 3.8.8, que simula o processamento de pagamentos com diferentes formas de pagamento e estados de transação.
+Este resumo fornece uma visão geral do projeto, incluindo os requisitos, regras de negócio, endpoints principais e instruções para acessar a documentação da API e configurar o ambiente de desenvolvimento.
 
 ## Requisitos
 Java 17
 Maven 3.8.8
 
 
-# Regra de Negocio 
-todos os valores maiores que 200 serao recusados
+# Regras de Negocio 
+Todos os valores de pagamento maiores que 200 serão recusados.
 
-# Maquina da estado 
+# Maquinas da estado 
 1 PROCESSANDO
 2 RECUSADO
 3 APROVADO
 
-# Forma de pagamentos
+# Formas de pagamentos
 1 PIX
 2 CARTAO CREDITO
 3 SALDO
 
-# comando para criar pagamento
+# Endpoints
+
+## comando para criar pagamento
 ````
 # POST /api/v1/pagamento
 Header: 
@@ -54,12 +57,12 @@ Retorno:
     "status":"APROVADO"
     }
 }
-
-
 ````
 
-## Buscando o status da transacao
-
+## Buscar Status da Transação
+* Método: GET
+* URL: /api/v1/pagamento/transacao/{transacaoId}
+* Exemplo de Retorno:
 ````
 GET 
 
@@ -79,18 +82,16 @@ http://localhost:8080/api/v1/pagamento/transacao/1b51736b-2e32-4934-8036-078275e
 ````
 
 ## Documentacao da API 
-Basta rodar na sua maquina e abrir o swagger
+Para acessar a documentação da API, execute o projeto e abra o Swagger:
 ```
 $ cd raiz-do-projeto
 $ mvn spring-boot:run
 ```
 
-### Swagger
-http://localhost:8080/swagger-ui/index.html#/
+* Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 
-
-
-## Para configurar o vscode para executar o projeto use o seguinte arquivo
+## Configuração do VSCode
+Para configurar o VSCode para executar o projeto, use o seguinte arquivo launch.json:
 ````
 //launch.json
 {
