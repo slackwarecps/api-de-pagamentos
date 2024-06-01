@@ -1,0 +1,64 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "fabio-pay",
+    "collectionId": "7124b32a-9b3e-4d1b-b54f-9ad6cfb41023",
+    "dateExported": "2024-06-01T11:58:13.340Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "93b369bc-c64b-48b0-9641-ee98d0cae69a",
+            "colId": "7124b32a-9b3e-4d1b-b54f-9ad6cfb41023",
+            "containerId": "",
+            "name": "get pagamentos",
+            "url": "http://localhost:8080/api/v1/pagamento",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-05-31T13:34:24.958Z",
+            "modified": "2024-05-31T13:34:56.542Z",
+            "headers": []
+        },
+        {
+            "_id": "a883d31d-aaf3-43cd-a529-2d608eec15ab",
+            "colId": "7124b32a-9b3e-4d1b-b54f-9ad6cfb41023",
+            "containerId": "",
+            "name": "Cria Pagamento",
+            "url": "http://localhost:8080/api/v1/pagamento",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-06-01T09:11:02.449Z",
+            "modified": "2024-06-01T10:13:28.455Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"id\":123,\n    \"formaPagamento\":\"PIX\",\n    \"payer\":\"Fabio\",\n    \"payee\":\"Tatiana\",\n    \"amount\": 125.98,\n    \"batata-frita\":3333,\n    \"callback\":\"https://open-bingo.wiremockapi.cloud/pagbank/notificacao\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b91dc0e9-d072-45f7-93ba-3cb38b81de3a",
+            "colId": "7124b32a-9b3e-4d1b-b54f-9ad6cfb41023",
+            "containerId": "",
+            "name": "get pagamentos by id",
+            "url": "http://localhost:8080/api/v1/pagamento/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-06-01T09:12:10.923Z",
+            "modified": "2024-06-01T09:12:28.713Z",
+            "headers": []
+        },
+        {
+            "_id": "ae936b21-13fb-4494-b8f0-a4a179c99c0b",
+            "colId": "7124b32a-9b3e-4d1b-b54f-9ad6cfb41023",
+            "containerId": "",
+            "name": "get pagamentos by TransacaoId",
+            "url": "http://localhost:8080/api/v1/pagamento/transacao/TX123",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-06-01T11:33:41.901Z",
+            "modified": "2024-06-01T11:36:06.629Z",
+            "headers": []
+        }
+    ],
+    "ref": "c2f9z2xXWdu_Yn7oMa3RJatKtfSUtczfV1qB3xwrrrUK-WdTMA6r-tooAlEeMYyEsvRoKyx9137dsp9pWQwk6w"
+}

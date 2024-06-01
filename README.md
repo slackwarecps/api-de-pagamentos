@@ -118,5 +118,7 @@ Para configurar o VSCode para executar o projeto, use o seguinte arquivo launch.
 }
 ````
 
-
+# Collection do ThunderClient 
+Para testar os metodos existe uma collection json que pode ser acessada na pasta /collection
+* instale a extensao ThunderCliente do vscode ou importe a collection no postman.
 
