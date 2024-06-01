@@ -35,10 +35,15 @@ public class PagamentoController {
         LocalDateTime created = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String createdAsString = created.format(formatter);
-        Pagamento createdPagamento = PagamentoService.createPagamento(dto.transformaParaObjeto());
-        createdPagamento.setTransacaoId(codigoUUID);
-        createdPagamento.setCreated(createdAsString);
-        createdPagamento.setStatus("PROCESSANDO");
+
+        // Transformar o DTO em objeto Pagamento
+        Pagamento pagamento = dto.transformaParaObjeto();
+        // Definir os valores dos campos antes de salvar
+        pagamento.setTransacaoId(codigoUUID);
+        pagamento.setCreated(createdAsString);
+        pagamento.setStatus("PROCESSANDO");
+
+        Pagamento createdPagamento = PagamentoService.createPagamento(pagamento);
 
         return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmRespostaDTO(createdPagamento), HttpStatus.CREATED);
     }
