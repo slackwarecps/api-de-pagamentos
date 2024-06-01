@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fabioalvaro.pagamento.dominio.Pagamento;
 import br.com.fabioalvaro.pagamento.dto.PagamentoDTO;
 import br.com.fabioalvaro.pagamento.dto.PagamentoRespostaDTO;
+import br.com.fabioalvaro.pagamento.service.NotificationService;
 import br.com.fabioalvaro.pagamento.service.PagamentoService;
 
 @RestController
@@ -27,7 +28,10 @@ import br.com.fabioalvaro.pagamento.service.PagamentoService;
 public class PagamentoController {
 
     @Autowired
-    private PagamentoService PagamentoService;
+    private PagamentoService pagamentoService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @PostMapping
     public ResponseEntity<PagamentoRespostaDTO> createPagamento(@Validated @RequestBody PagamentoDTO dto) {
@@ -43,14 +47,14 @@ public class PagamentoController {
         pagamento.setCreated(createdAsString);
         pagamento.setStatus("PROCESSANDO");
 
-        Pagamento createdPagamento = PagamentoService.createPagamento(pagamento);
+        Pagamento createdPagamento = pagamentoService.createPagamento(pagamento);
 
         return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmRespostaDTO(createdPagamento), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<PagamentoRespostaDTO>> getAllPagamentos() {
-        List<Pagamento> lista_pagamentos = PagamentoService.getAllPagamentos();
+        List<Pagamento> lista_pagamentos = pagamentoService.getAllPagamentos();
         List<PagamentoRespostaDTO> lista_pagamentos_dto = new ArrayList<PagamentoRespostaDTO>();
         for (Pagamento pagamento : lista_pagamentos) {
             PagamentoRespostaDTO resposta_dto = PagamentoRespostaDTO.transformaEmRespostaDTO(pagamento);
@@ -63,7 +67,8 @@ public class PagamentoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PagamentoRespostaDTO> getPagamentoById(@PathVariable Long id) {
-        Pagamento Pagamento = PagamentoService.getPagamentoById(id);
+
+        Pagamento Pagamento = pagamentoService.getPagamentoById(id);
         if (Pagamento == null) {
             return ResponseEntity.notFound().build();
         }

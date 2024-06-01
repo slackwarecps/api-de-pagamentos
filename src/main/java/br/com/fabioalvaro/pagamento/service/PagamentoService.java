@@ -1,6 +1,5 @@
 package br.com.fabioalvaro.pagamento.service;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +12,34 @@ import br.com.fabioalvaro.pagamento.repository.PagamentoRepository;
 public class PagamentoService {
 
     @Autowired
-    private PagamentoRepository PagamentoRepository;
-
-    
+    private PagamentoRepository pagamentoRepository;
 
     public Pagamento createPagamento(Pagamento Pagamento) {
-        return PagamentoRepository.save(Pagamento);
+        return pagamentoRepository.save(Pagamento);
+    }
+
+    public Pagamento updatePagamento(Pagamento pagamento) {
+        return pagamentoRepository.save(pagamento); // Salva a alteração no banco de dados
     }
 
     public List<Pagamento> getAllPagamentos() {
-        return PagamentoRepository.findAll();
+        return pagamentoRepository.findAll();
     }
 
     public Pagamento getPagamentoById(Long id) {
-        return PagamentoRepository.findById(id).orElse(null);
+        return pagamentoRepository.findById(id).orElse(null);
     }
 
+    public void printPendingPayments() {
+        List<Pagamento> pendingPayments = pagamentoRepository.findByStatus("PROCESSANDO");
+        for (Pagamento pagamento : pendingPayments) {
+            System.out.println("Transacao ID: " + pagamento.getTransacaoId());
+        }
+    }
 
- 
+    public List<Pagamento> getPendingPayments() {
+        List<Pagamento> pendingPayments = pagamentoRepository.findByStatus("PROCESSANDO");
+        return pendingPayments;
+    }
 
 }

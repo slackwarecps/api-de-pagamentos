@@ -1,6 +1,14 @@
 # api-de-pagamentos
 Api de pagamentos Mock
 
+## Requisitos
+Java 17
+Maven 3.8.8
+
+
+# Regra de Negocio 
+todos os valores maiores que 200 serao recusados
+
 # Maquina da estado 
 1 PROCESSANDO
 2 RECUSADO
@@ -36,5 +44,17 @@ Retorno:
   "transacaoId": "f38496c6-17bd-448f-9f41-864a89d51443",
   "callback": "http://localhost:8080/nada"
 }
+````
+
+## Exemplo de callback enviado para o webhook informado no campo callback
+````
+{
+  "data":{
+    "transacaoId":"0f9527f4-9625-4c9c-bf1c-a0980d0e9508",
+    "status":"APROVADO"
+    }
+}
+
+
 ````
 
