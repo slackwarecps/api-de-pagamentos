@@ -40,8 +40,6 @@ public class PagamentoController {
         createdPagamento.setCreated(createdAsString);
         createdPagamento.setStatus("PROCESSANDO");
 
-        // return
-        // ResponseEntity.ok(PagamentoRespostaDTO.transformaEmDTO(createdPagamento));
         return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmRespostaDTO(createdPagamento), HttpStatus.CREATED);
     }
 

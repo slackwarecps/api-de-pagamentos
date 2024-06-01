@@ -2,6 +2,7 @@ package br.com.fabioalvaro.pagamento.dto;
 
 import java.math.BigDecimal;
 
+import br.com.fabioalvaro.pagamento.dominio.FormaPagamento;
 import br.com.fabioalvaro.pagamento.dominio.Pagamento;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,10 +20,11 @@ public class PagamentoRespostaDTO {
     private String created;
     private String transacaoId;
     private String callback;
+    private FormaPagamento formaPagamento;
 
     public static PagamentoRespostaDTO transformaEmRespostaDTO(Pagamento pagamento) {
         return new PagamentoRespostaDTO(pagamento.getId(), pagamento.getPayer(), pagamento.getPayee(),
                 pagamento.getAmount(), pagamento.getStatus(), pagamento.getCreated(), pagamento.getTransacaoId(),
-                pagamento.getCallback());
+                pagamento.getCallback(), pagamento.getFormaPagamento());
     }
 }

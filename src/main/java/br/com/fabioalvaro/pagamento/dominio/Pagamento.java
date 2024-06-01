@@ -3,6 +3,8 @@ package br.com.fabioalvaro.pagamento.dominio;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -44,5 +46,8 @@ public class Pagamento {
     private String transacaoId;
     @NotNull
     private String callback;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private FormaPagamento formaPagamento;
 
 }

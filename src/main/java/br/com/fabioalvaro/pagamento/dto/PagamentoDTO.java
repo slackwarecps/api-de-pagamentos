@@ -3,6 +3,7 @@ package br.com.fabioalvaro.pagamento.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import br.com.fabioalvaro.pagamento.dominio.FormaPagamento;
 import br.com.fabioalvaro.pagamento.dominio.Pagamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,10 @@ public class PagamentoDTO implements Serializable {
 
     private String callback;
 
+    private FormaPagamento formaPagamento;
+
     public Pagamento transformaParaObjeto() {
-        return new Pagamento(id, payer, payee, amount, null, null, null, callback);
+        System.out.println(formaPagamento);
+        return new Pagamento(id, payer, payee, amount, null, null, null, callback, formaPagamento);
     }
 }
