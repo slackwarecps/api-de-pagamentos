@@ -15,9 +15,12 @@ public class PagamentoRespostaDTO {
     private String payer;
     private String payee;
     private BigDecimal amount;
+    private String status;
+    private String created;
+    private String transacaoId;
 
-    public static PagamentoRespostaDTO transformaEmDTO(Pagamento pagamento) {
+    public static PagamentoRespostaDTO transformaEmRespostaDTO(Pagamento pagamento) {
         return new PagamentoRespostaDTO(pagamento.getId(), pagamento.getPayer(), pagamento.getPayee(),
-                pagamento.getAmount());
+                pagamento.getAmount(), pagamento.getStatus(), pagamento.getCreated(), pagamento.getTransacaoId());
     }
 }

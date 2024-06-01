@@ -1,7 +1,10 @@
 package br.com.fabioalvaro.pagamento.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,33 +31,39 @@ public class PagamentoController {
 
     @PostMapping
     public ResponseEntity<PagamentoRespostaDTO> createPagamento(@Validated @RequestBody PagamentoDTO dto) {
+        String codigoUUID = UUID.randomUUID().toString();
+        LocalDateTime created = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String createdAsString = created.format(formatter);
         Pagamento createdPagamento = PagamentoService.createPagamento(dto.transformaParaObjeto());
+        createdPagamento.setTransacaoId(codigoUUID);
+        createdPagamento.setCreated(createdAsString);
+        createdPagamento.setStatus("PROCESSANDO");
+
         // return
         // ResponseEntity.ok(PagamentoRespostaDTO.transformaEmDTO(createdPagamento));
-        return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmDTO(createdPagamento), HttpStatus.CREATED);
+        return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmRespostaDTO(createdPagamento), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<PagamentoDTO>> getAllPagamentos() {
+    public ResponseEntity<List<PagamentoRespostaDTO>> getAllPagamentos() {
         List<Pagamento> lista_pagamentos = PagamentoService.getAllPagamentos();
-        List<PagamentoDTO> lista_pagamentos_dto = new ArrayList<PagamentoDTO>();
+        List<PagamentoRespostaDTO> lista_pagamentos_dto = new ArrayList<PagamentoRespostaDTO>();
         for (Pagamento pagamento : lista_pagamentos) {
-            PagamentoDTO dto = new PagamentoDTO();
-            dto.setId(pagamento.getId());
-            dto.setPayer(pagamento.getPayer());
-            dto.setPayee(pagamento.getPayee());
-            lista_pagamentos_dto.add(dto);
+            PagamentoRespostaDTO resposta_dto = PagamentoRespostaDTO.transformaEmRespostaDTO(pagamento);
+
+            lista_pagamentos_dto.add(resposta_dto);
         }
 
         return ResponseEntity.ok(lista_pagamentos_dto);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pagamento> getPagamentoById(@PathVariable Long id) {
+    public ResponseEntity<PagamentoRespostaDTO> getPagamentoById(@PathVariable Long id) {
         Pagamento Pagamento = PagamentoService.getPagamentoById(id);
         if (Pagamento == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(Pagamento);
+        return ResponseEntity.ok(PagamentoRespostaDTO.transformaEmRespostaDTO(Pagamento));
     }
 }
