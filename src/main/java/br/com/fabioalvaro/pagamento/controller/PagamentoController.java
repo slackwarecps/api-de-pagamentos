@@ -1,12 +1,10 @@
 package br.com.fabioalvaro.pagamento.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
+import br.com.fabioalvaro.pagamento.controller.mapper.PagamentoDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,22 +32,12 @@ public class PagamentoController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private PagamentoDTOMapper mapper;
+
     @PostMapping
     public ResponseEntity<PagamentoRespostaDTO> createPagamento(@Validated @RequestBody PagamentoDTO dto) {
-        String codigoUUID = UUID.randomUUID().toString();
-        LocalDateTime created = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String createdAsString = created.format(formatter);
-
-        // Transformar o DTO em objeto Pagamento
-        Pagamento pagamento = dto.transformaParaObjeto();
-        // Definir os valores dos campos antes de salvar
-        pagamento.setTransacaoId(codigoUUID);
-        pagamento.setCreated(createdAsString);
-        pagamento.setStatus("PROCESSANDO");
-
-        Pagamento createdPagamento = pagamentoService.createPagamento(pagamento);
-
+        Pagamento createdPagamento = pagamentoService.createPagamento(mapper.pagamentoDtoToPagamento(dto));
         return new ResponseEntity<>(PagamentoRespostaDTO.transformaEmRespostaDTO(createdPagamento), HttpStatus.CREATED);
     }
 

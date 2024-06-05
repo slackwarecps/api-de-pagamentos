@@ -5,17 +5,14 @@ import java.math.BigDecimal;
 
 import br.com.fabioalvaro.pagamento.dominio.FormaPagamento;
 import br.com.fabioalvaro.pagamento.dominio.Pagamento;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class PagamentoDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;

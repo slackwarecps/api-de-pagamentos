@@ -1,0 +1,8 @@
+{
+  "id": 123,
+  "payer": "Fabio",
+  "payee": "Tatiana",
+  "amount": 125.98,
+  "callback": "http://localhost:8080/nada",
+  "formaPagamento": "PIX"
+}
