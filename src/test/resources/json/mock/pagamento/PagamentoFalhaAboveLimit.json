@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "payer": "Fabio",
+  "payee": "Tatiana",
+  "amount": 250.00,
+  "callback": "http://localhost:8080/nada",
+  "formaPagamento": "PIX",
+  "status": "RECUSADO",
+  "transacaoId": "f38496c6-17bd-448f-9f41-864a89d51443",
+  "created": "2024-06-01 06:12:50"
+}

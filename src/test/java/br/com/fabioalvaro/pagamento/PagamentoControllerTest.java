@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import br.com.fabioalvaro.JsonTestUtils;
+import br.com.fabioalvaro.pagamento.controller.mapper.PagamentoDTOMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,31 +33,25 @@ public class PagamentoControllerTest {
     @Mock
     private PagamentoService pagamentoService;
 
+    @Mock
+    private PagamentoDTOMapper mapper;
+
     @InjectMocks
     private PagamentoController pagamentoController;
+
+    private String MOCK_FOLDER_PAGAMENTO = "src/test/resources/json/mock/pagamento";
 
     public PagamentoControllerTest() {
         MockitoAnnotations.openMocks(this);
     }
 
-    @SuppressWarnings("null")
+
     @Test
-    public void testCreatePagamentoSuccess() {
-        PagamentoDTO dto = new PagamentoDTO();
-        dto.setId(123L);
-        dto.setPayer("Fabio");
-        dto.setPayee("Tatiana");
-        dto.setAmount(new BigDecimal("125.98"));
-        dto.setCallback("http://localhost:8080/nada");
-        dto.setFormaPagamento(FormaPagamento.PIX);
-
-        Pagamento pagamento = dto.transformaParaObjeto();
-        pagamento.setId(1L);
-        pagamento.setStatus("PROCESSANDO");
-        pagamento.setTransacaoId("f38496c6-17bd-448f-9f41-864a89d51443");
-        pagamento.setCreated("2024-06-01 06:12:50");
-
+    public void testCreatePagamentoSuccess() throws IOException {
+        PagamentoDTO dto = JsonTestUtils.convertFileToObject(MOCK_FOLDER_PAGAMENTO, "/PagamentoDTOSucesso.json", PagamentoDTO.class);
+        Pagamento pagamento = JsonTestUtils.convertFileToObject(MOCK_FOLDER_PAGAMENTO, "/PagamentoSucesso.json", Pagamento.class);
         when(pagamentoService.createPagamento(any(Pagamento.class))).thenReturn(pagamento);
+        when(mapper.pagamentoDtoToPagamento(any(PagamentoDTO.class))).thenReturn(pagamento);
 
         ResponseEntity<PagamentoRespostaDTO> response = pagamentoController.createPagamento(dto);
 
@@ -63,25 +60,13 @@ public class PagamentoControllerTest {
     }
 
     @Test
-    public void testCreatePagamentoAboveLimit() {
+    public void testCreatePagamentoAboveLimit() throws IOException {
         System.out.println("Iniciando testes....");
-        PagamentoDTO dto = new PagamentoDTO();
-        dto.setId(123L);
-        dto.setPayer("Fabio");
-        dto.setPayee("Tatiana");
-        dto.setAmount(new BigDecimal("250.00"));
-        dto.setCallback("http://localhost:8080/nada");
-        dto.setFormaPagamento(FormaPagamento.PIX);
-
-        Pagamento pagamento = dto.transformaParaObjeto();
-        pagamento.setId(1L);
-        pagamento.setStatus("RECUSADO");
-
-        pagamento.setTransacaoId("f38496c6-17bd-448f-9f41-864a89d51443");
-        pagamento.setCreated("2024-06-01 06:12:50");
+        PagamentoDTO dto = JsonTestUtils.convertFileToObject(MOCK_FOLDER_PAGAMENTO, "/PagamentoDTOAboveLimit.json", PagamentoDTO.class);
+        Pagamento pagamento = JsonTestUtils.convertFileToObject(MOCK_FOLDER_PAGAMENTO, "/PagamentoFalhaAboveLimit.json", Pagamento.class);
 
         when(pagamentoService.createPagamento(any(Pagamento.class))).thenReturn(pagamento);
-
+        when(mapper.pagamentoDtoToPagamento(any(PagamentoDTO.class))).thenReturn(pagamento);
         ResponseEntity<PagamentoRespostaDTO> response = pagamentoController.createPagamento(dto);
         System.out.println("==============================");
         System.out.println(pagamento);
