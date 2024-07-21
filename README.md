@@ -33,6 +33,7 @@ Body:
     "payer":"Fabio",
     "payee":"Tatiana",
     "amount": 125.98,
+    "formaPagamento":"PIX",
     "batata-frita":3333,
     "callback":"http://localhost:8080/nada"
 }
